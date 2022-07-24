@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {getCountriesName, getDaily} from "./api.js";
+import {WeatherInfo, CountryInfo, Search} from './components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+function App () {
+    const [countries, setCountries] = useState([]);
+
+    const onCountryChange = async(countryName) => {
+        const countries = await getCountriesName(countryName);
+        setCountries(countries);
+    }
+
+    console.log(countries);
+     
+    return (
+        <div>
+            <Search
+            onChange={onCountryChange}
+            />
+        </div>
+    )
 }
 
 export default App;
